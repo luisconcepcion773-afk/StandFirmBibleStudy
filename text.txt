@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stand Firm Bible Study</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons Library for simple vector icons -->
+    <script type="module">
+        // Basic setup for Lucide icons if needed later, though not strictly required for this simple design.
+    </script>
+    <style>
+        :root {
+            --color-primary: #374151; /* Deep Indigo/Navy */
+            --color-accent: #06b6d4; /* Vibrant Cyan/Teal */
+            --color-text: #e0f2f1; /* Light Text */
+            --color-text-dark: #1f2937; /* Dark Text */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+        }
+        .header, .footer {
+            background-color: var(--color-primary);
+            color: var(--color-text);
+        }
+        .nav-link:hover, .btn-primary:hover {
+            opacity: 0.9;
+        }
+        .page-content-wrapper {
+            min-height: calc(100vh - 128px); /* Account for header and footer height */
+            padding-bottom: 2rem;
+        }
+        /* Custom Shadow for Hero Card on Home Page */
+        .hero-card-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05), 0 0 0 8px rgba(6, 182, 212, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- State management for the single-page view -->
+    <script>
+        // Use a simple hash change listener to simulate page navigation
+        const navigate = (pageId) => {
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+            const target = document.getElementById(pageId);
+            if (target) {
+                target.classList.remove('hidden');
+                // Update active link in navigation
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('font-bold', 'text-cyan-300');
+                });
+                const activeLink = document.querySelector(`.nav-link[data-page="${pageId}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('font-bold', 'text-cyan-300');
+                }
+            }
+        };
+
+        // Initialize view on load
+        window.onload = () => {
+            // Check hash in URL to load the correct page, default to home
+            let initialPage = window.location.hash.substring(1) || 'home';
+            // Ensure the initial page exists
+            if (!document.getElementById(initialPage)) {
+                initialPage = 'home';
+            }
+            navigate(initialPage);
+
+            // NOTE: Removed the event listener loop as we are relying on direct 'onclick' handlers for reliability.
+
+            // Handle hash changes (e.g., back button)
+            window.addEventListener('hashchange', () => {
+                let pageId = window.location.hash.substring(1) || 'home';
+                if (document.getElementById(pageId)) {
+                    navigate(pageId);
+                } else {
+                    navigate('home');
+                }
+            });
+        };
+    </script>
+
+    <!-- Header and Navigation -->
+    <header class="header shadow-lg sticky top-0 z-10">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
+            <!-- Logo Text - Icon removed per request -->
+            <a href="#" class="text-2xl font-extrabold tracking-wider text-cyan-400" onclick="navigate('home'); return false;">
+                Stand Firm Bible Study
+            </a>
+
+            <!-- Navigation Menu -->
+            <ul class="flex space-x-4">
+                <li class="nav-item"><a href="#" data-page="home" class="nav-link text-lg px-2 hover:text-cyan-400 transition duration-150" onclick="navigate('home'); return false;">Home</a></li>
+                <li class="nav-item"><a href="#" data-page="about" class="nav-link text-lg px-2 hover:text-cyan-400 transition duration-150" onclick="navigate('about'); return false;">About Us</a></li>
+                <li class="nav-item"><a href="#" data-page="beliefs" class="nav-link text-lg px-2 hover:text-cyan-400 transition duration-150" onclick="navigate('beliefs'); return false;">Our Beliefs</a></li>
+                <li class="nav-item"><a href="#" data-page="contact" class="nav-link text-lg px-2 hover:text-cyan-400 transition duration-150" onclick="navigate('contact'); return false;">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <main class="page-content-wrapper container mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- 1. HOME SECTION -->
+        <section id="home" class="page-section hidden py-12 md:py-20">
+            <div class="max-w-4xl mx-auto text-center bg-white p-8 md:p-12 rounded-xl hero-card-shadow border-t-4 border-cyan-500">
+                <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-6">Welcome to Stand Firm Bible Study Group!</h1>
+
+                <p class="text-xl text-gray-700 mb-8 leading-relaxed">
+                    We're a growing community of believers in **Chicago** united by our passion for the **Gospel of God's grace**. We're on a mission to connect with other like-minded individuals who share our values and desire to grow in their faith. If you're a believer living in the Chicago area, we invite you to join our community! Our heart is to create a **supportive and loving environment** where we can encourage one another, pray for each other, and grow together in God's love and grace. We believe that **fellowship and community** are essential to our walk with God, and we don't want anyone to feel alone in their faith journey.
+                </p>
+
+                <!-- Call to Action Button -->
+                <button onclick="navigate('contact')" class="btn-primary inline-flex items-center justify-center px-8 py-3 border border-transparent text-lg font-semibold rounded-full shadow-lg text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-4 focus:ring-cyan-300 transition duration-300 transform hover:scale-105">
+                    Connect With Us Today
+                </button>
+            </div>
+        </section>
+
+        <!-- 2. ABOUT US SECTION -->
+        <section id="about" class="page-section hidden py-12 md:py-20">
+            <div class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-xl shadow-xl border-t-4 border-cyan-500">
+                <h2 class="text-3xl font-extrabold text-gray-900 mb-6 border-b pb-2 border-cyan-500">Why We Decided "Stand Firm"</h2>
+
+                <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+                    **Standing firm** means to hold fast to the unmerited favor that God has given us through Jesus Christ, not relying on our own works or efforts but trusting fully in His provision for salvation and sanctification. **Grace** is the foundation of our justification—God's free gift that makes us right with Him—and it also empowers us to live godly lives. We are called to stand firm, resisting **legalism and false teachings**, and to grow continually in the grace and knowledge of our Lord Jesus Christ. This steadfastness involves humility, recognizing our complete dependence on God's grace, and living lives that reflect gratitude rather than licentiousness. Our confidence is not in ourselves but in the power of God’s grace that saves and sustains us. Therefore, standing firm in grace is both a **positional truth**—being justified and secure in Christ—and an **experiential reality**—growing in Christlikeness by relying on God's grace daily.
+                </p>
+
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 mt-8">Scriptural Foundation</h3>
+                <div class="space-y-6 text-gray-700 border-l-4 border-gray-200 pl-4">
+
+                    <!-- Jude 24-25 -->
+                    <div class="bg-gray-50 p-3 rounded-lg shadow-sm">
+                        <p class="italic mb-2">"Now to Him who is able to keep you from stumbling and to make you stand in the presence of His glory blameless with great joy, to the only God our Savior, through Jesus Christ our Lord, be glory, majesty, dominion, and authority before all time, now and forever. Amen."</p>
+                        <p class="font-semibold text-sm text-cyan-700">Jude 24-25</p>
+                    </div>
+
+                    <!-- 1 Peter 5:12 -->
+                    <div class="bg-gray-50 p-3 rounded-lg shadow-sm">
+                        <p class="italic mb-2">“By Silvanus, our faithful brother as I consider him, I have written to you briefly, exhorting and testifying that this is the true grace of God in which you stand.”</p>
+                        <p class="font-semibold text-sm text-cyan-700">I Peter 5:12</p>
+                    </div>
+
+                    <!-- Galatians 5:1 -->
+                    <div class="bg-gray-50 p-3 rounded-lg shadow-sm">
+                        <p class="italic mb-2">"It is for freedom that Christ has set us free; therefore keep standing firm and do not be subject again to a yoke of slavery."</p>
+                        <p class="font-semibold text-sm text-cyan-700">Galatians 5:1</p>
+                    </div>
+
+                    <!-- 2 Peter 3:18 -->
+                    <div class="bg-gray-50 p-3 rounded-lg shadow-sm">
+                        <p class="italic mb-2">"But grow in the grace and knowledge of our Lord and Savior Jesus Christ. To Him be the glory both now and to the day of eternity. Amen."</p>
+                        <p class="font-semibold text-sm text-cyan-700">2 Peter 3:18</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. OUR BELIEFS SECTION -->
+        <section id="beliefs" class="page-section hidden py-12 md:py-20">
+            <div class="max-w-5xl mx-auto bg-white p-8 md:p-12 rounded-xl shadow-xl">
+                <h2 class="text-4xl font-extrabold text-gray-900 mb-8 text-center">Our Statement of Faith</h2>
+
+                <div class="space-y-10">
+
+                    <!-- God the Trinity -->
+                    <div class="border-l-4 border-cyan-500 pl-4">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3 flex items-center">
+                            <span class="mr-3 text-3xl">✝️</span> God the Father, Son, and Holy Spirit
+                        </h3>
+                        <ul class="space-y-3 text-gray-700 text-base">
+                            <li>We believe in the one living and true God, perfect in wisdom, sovereignty, holiness, justice, mercy, and love (<span class="font-semibold text-cyan-700">1 Timothy 1:17; Psalm 86:15; Deuteronomy 32:3-4</span>). He exists eternally in three co-equal persons who act together in creation, providence, and redemption (<span class="font-semibold text-cyan-700">Genesis 1:26; 1 Peter 1:2; Hebrews 1:1-3</span>).</li>
+                            <li>**God the Father,** who is the first person of the divine trinity, reigns with providential care over all life and history in His created universe (<span class="font-semibold text-cyan-700">1 Chronicles 29:11-13; Matthew 7:11</span>). He initiated salvation by sending His Son, and He is Father to those who by faith accept His Son as Lord and Savior (<span class="font-semibold text-cyan-700">1 John 4:9-10; John 3:16; John 1:12; Acts 16:31</span>).</li>
+                            <li>**God the Son,** who is co-equal with the Father (<span class="font-semibold text-cyan-700">Colossians 1:15; Hebrews 1:3</span>), became man, was conceived of the Holy Spirit, and was born of the virgin Mary (<span class="font-semibold text-cyan-700">John 1:14; Matthew 1:18</span>). Being fully God and fully man, He lived a sinless life through the power of the Holy Spirit, thus defeating Satan and sin through His offering of Himself on the cross for the sins of the world. By restricting His divine attributes, and living in reliance on the Holy Spirit during His earthly life He became the believer’s model for the spiritual life, whereby we are shown that we must also rely on the power of the Holy Spirit to please God (<span class="font-semibold text-cyan-700">Romans 8:1-4</span>). Since Jesus paid the penalty for the sins of the world through His death on the cross, faith in His atoning work is the only means by which a person may receive eternal life.</li>
+                            <li>**God the Holy Spirit** inspired men to write the Scriptures (<span class="font-semibold text-cyan-700">2 Peter 1:21</span>). Through this Word, He convicts individuals of their sinfulness and of the righteousness of Christ, draws them to the Savior (<span class="font-semibold text-cyan-700">John 6:44; 12:32</span>), and bears witness to their new birth (<span class="font-semibold text-cyan-700">James 1:18; John 16:7-11; 1 Thessalonians 1:5-6; Romans 8:16</span>). At regeneration and conversion, which happens at the moment of belief, the believer is baptized in the Holy Spirit (<span class="font-semibold text-cyan-700">1 Corinthians 12:13</span>). The Spirit indwells, seals and gives spiritual gifts, at the moment of belief (<span class="font-semibold text-cyan-700">2 Corinthians 3:15</span>), to all believers for ministry in the church and society (<span class="font-semibold text-cyan-700">Romans 8:9-11; Ephesians 1:13-14; Romans 12:5-8; 1 Peter 4:10</span>). He empowers, guides, teaches, fills, sanctifies and produces the fruit of Christ-likeness in all who yield to Him (<span class="font-semibold text-cyan-700">Acts 4:31; Romans 8:14; 1 Corinthians 2:10-13; Ephesians 5:18; 2 Thessalonians 2:13; Galatians 5:16; 22-23</span>).</li>
+                        </ul>
+                    </div>
+
+                    <!-- The Bible -->
+                    <div class="border-l-4 border-cyan-500 pl-4">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3 flex items-center">
+                            <span class="mr-3 text-3xl">📖</span> The Bible and Hermeneutics
+                        </h3>
+                        <ul class="space-y-3 text-gray-700 text-base">
+                            <li>We believe the **Bible is God's Word** given by divine inspiration, and is the record of God's revelation of Himself to humanity (<span class="font-semibold text-cyan-700">2 Timothy 3:16</span>). It is the verbal, plenary, and inspired Word of God. The term “verbal” means that every word of the Bible in the original languages of Hebrew, Aramaic and Greek is without error. “Plenary” refers to the fact that the entirety of Scripture is equally inspired, and the Bible is “inspired” because it is God-breathed by the Holy Spirit to the human authors, whereby they recorded the words of Scripture using their human vocabulary and style (<span class="font-semibold text-cyan-700">1 Peter 1:23-25; 2 Peter 1:20-21; John 17:17; 2 Timothy 3:16-17</span>).</li>
+                            <li>We conclude that the Bible should be consistently interpreted using a **literal, grammatical-historical, contextual interpretation**. We reject allegorical, spiritual, or mystical approaches to interpreting Scripture, which leads us to reject Covenant Theology, Preterism, Post-Millennial Theology, Progressive and Hyper or Ultra-Dispensationalism and Amillennial Theology.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Man and Sin -->
+                    <div class="border-l-4 border-cyan-500 pl-4">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3 flex items-center">
+                            <span class="mr-3 text-3xl">👤</span> Man and Sin
+                        </h3>
+                        <ul class="space-y-3 text-gray-700 text-base">
+                            <li>We believe God created man in His own image to have fellowship with Himself and to be a steward over His creation (<span class="font-semibold text-cyan-700">Genesis 1:26-28</span>). Through Adam's willful choice to disobey God, sin and death entered the human race (<span class="font-semibold text-cyan-700">Genesis 3; Romans 5:12-21; 8:22</span>). Therefore, everyone is born with a sinful nature, and needs to be reconciled to God (<span class="font-semibold text-cyan-700">Romans 3:9-18; 23</span>).</li>
+                            <li>Nonetheless, every human being is responsible to God for thoughts, actions and beliefs, and has the right and responsibility to approach Him directly through Jesus Christ, the only mediator (<span class="font-semibold text-cyan-700">Romans 14:12; 1 Timothy 2:5; 2 Peter 3:9</span>).</li>
+                        </ul>
+                    </div>
+
+                    <!-- Salvation -->
+                    <div class="border-l-4 border-cyan-500 pl-4">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3 flex items-center">
+                            <span class="mr-3 text-3xl">🎁</span> Salvation by Grace through Faith
+                        </h3>
+                        <ul class="space-y-3 text-gray-700 text-base">
+                            <li>We believe that eternal life is received by the **grace of God alone, through faith in the Lord Jesus Christ alone** as the only means for the forgiveness of sins (<span class="font-semibold text-cyan-700">Acts 16:31; Ephesians 2:8-9; John 3:16</span>). Since the only requirement for salvation is faith in the Lord Jesus Christ as Savior, and the Gospel is made available to all, His offer of salvation is a genuine offer to all, and therefore all people have an equal opportunity to believe, and be saved (<span class="font-semibold text-cyan-700">Titus 2:11</span>).</li>
+                        </ul>
+                    </div>
+
+                    <!-- Tenses of Salvation -->
+                    <div class="border-l-4 border-cyan-500 pl-4">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3 flex items-center">
+                            <span class="mr-3 text-3xl">⏳</span> Three Tenses of "Salvation"
+                        </h3>
+                        <ul class="space-y-3 text-gray-700 text-base">
+                            <li>**Justification (Past):** Saved from the penalty of sin through faith in Christ alone. This is a one-time belief that results in an eternal benefit.</li>
+                            <li>**Sanctification (Present):** Saved from the power of sin in our lives as we walk with the Lord daily, moment by moment. This daily choice has no effect on justification.</li>
+                            <li>**Glorification (Future):** Saved from the very presence of sin when we are in heaven with Jesus Christ.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Church and Israel -->
+                    <div class="border-l-4 border-cyan-500 pl-4">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3 flex items-center">
+                            <span class="mr-3 text-3xl">🕊️</span> The Church, Israel, and Spiritual Gifts
+                        </h3>
+                        <ul class="space-y-3 text-gray-700 text-base">
+                            <li>**The Church Universal and Local:** The Church is the body of which Jesus Christ is the head, and all believers are members (<span class="font-semibold text-cyan-700">Ephesians 1:22-23; Romans 12:4-5</span>). The Church began on the Day of Pentecost after Jesus’s resurrection (<span class="font-semibold text-cyan-700">Acts 2:1-4, 11:15-16; 1 Corinthians 12:13</span>).</li>
+                            <li>**Israel and the Church:** We realize that **Israel and the Church are two distinct entities** in the plan of God. The Church has not replaced the nation of Israel, nor has it taken her promised future blessings.</li>
+                            <li>**Spiritual Gifts:** At the moment of faith, a person is indwelled by the Holy Spirit and receives spiritual gifts (<span class="font-semibold text-cyan-700">Romans 8:9-11, 1 Corinthians 3:16</span>). We believe that all of the **sign gifts have ceased** (apostle, prophesy, tongues, interpretation) since the completion of the canon of Scripture (<span class="font-semibold text-cyan-700">1 Corinthians 13:10</span>).</li>
+                        </ul>
+                    </div>
+
+                    <!-- Eschatology -->
+                    <div class="border-l-4 border-cyan-500 pl-4">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3 flex items-center">
+                            <span class="mr-3 text-3xl">👑</span> Eschatology (End Times)
+                        </h3>
+                        <ul class="space-y-3 text-gray-700 text-base">
+                            <li>We believe in a **Pre-Tribulation Rapture** of the Church (<span class="font-semibold text-cyan-700">1 Thessalonians 4:13-17; 5:9; Titus 2:13</span>) followed by the seven-year Tribulation period, which serves the purpose of bringing Israel to repentance.</li>
+                            <li>Following the second coming of Christ, He will literally rule and reign from Jerusalem over a Kingdom of His own making for **one thousand years** (the Millennium) (<span class="font-semibold text-cyan-700">Revelation 20:1-6</span>).</li>
+                            <li>After the Millennial Kingdom, the non-believing dead will be judged at the **Great White Throne Judgment** and consigned to everlasting punishment, while believers will be ushered into the eternal state with God in perfect fellowship (<span class="font-semibold text-cyan-700">Revelation 20:11-15; 21-22</span>).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. CONTACT US SECTION -->
+        <section id="contact" class="page-section hidden py-12 md:py-20">
+            <div class="max-w-xl mx-auto text-center bg-white p-8 md:p-12 rounded-xl shadow-xl border-t-4 border-cyan-500">
+                <h2 class="text-3xl font-extrabold text-gray-900 mb-6">Get In Touch</h2>
+                <p class="text-lg text-gray-700 mb-4">
+                    We'd love to hear from you and connect you with our community in the Chicago area!
+                </p>
+
+                <div class="space-y-4 pt-4">
+                    <p class="text-xl font-semibold text-gray-800">
+                        Email us at:
+                    </p>
+                    <a href="mailto:Luisconcepcion773@gmail.com" class="text-xl font-bold text-cyan-600 hover:text-cyan-700 transition duration-150">
+                        Luisconcepcion773@gmail.com
+                    </a>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <p class="text-lg text-gray-600 italic">
+                        (Note: Please contact us via email for our current meeting times and location in the Chicago area.)
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer mt-12 py-6 text-center shadow-inner">
+        &copy; 2025 StandFirmBibleStudy. All rights reserved.
+    </footer>
+
+</body>
+</html>
+
